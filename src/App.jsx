@@ -69,7 +69,12 @@ export const App = () => {
                   </button>
                 )}
               </td>
-              <td data-cy="GoodTitle" className="is-vcentered">
+              <td
+                data-cy="GoodTitle"
+                className={cn('is-vcentered', {
+                  'has-text-black': isSelected(good),
+                })}
+              >
                 {good}
               </td>
             </tr>
