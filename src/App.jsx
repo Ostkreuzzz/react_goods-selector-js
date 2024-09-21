@@ -17,9 +17,11 @@ export const goods = [
 ];
 
 export const App = () => {
-  const [selectedGood, setSelectedGood] = useState(goods[8]);
+  const [selectedGood, setSelectedGood] = useState('Jam');
 
   const isSelected = good => good === selectedGood;
+
+  const handleReset = () => setSelectedGood(null);
 
   return (
     <main className="section container">
@@ -34,7 +36,7 @@ export const App = () => {
             data-cy="ClearButton"
             type="button"
             className="delete ml-3"
-            onClick={() => setSelectedGood(null)}
+            onClick={() => setSelectedGood(handleReset)}
           />
         </h1>
       )}
@@ -44,30 +46,21 @@ export const App = () => {
           {goods.map(good => (
             <tr
               data-cy="Good"
-              className={cn('', {
+              className={cn({
                 'has-background-success-light': isSelected(good),
               })}
             >
               <td>
-                {isSelected(good) ? (
-                  <button
-                    onClick={() => setSelectedGood(null)}
-                    data-cy="RemoveButton"
-                    type="button"
-                    className="button is-info"
-                  >
-                    -
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setSelectedGood(good)}
-                    data-cy="AddButton"
-                    type="button"
-                    className="button"
-                  >
-                    +
-                  </button>
-                )}
+                <button
+                  onClick={() => setSelectedGood(good)}
+                  data-cy={isSelected ? 'RemoveButton' : 'AddButton'}
+                  type="button"
+                  className={cn('button', {
+                    'is-info': isSelected(good),
+                  })}
+                >
+                  {isSelected(good) ? '+' : '-'}
+                </button>
               </td>
               <td
                 data-cy="GoodTitle"
