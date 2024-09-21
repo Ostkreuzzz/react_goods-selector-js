@@ -22,6 +22,7 @@ export const App = () => {
   const isSelected = good => good === selectedGood;
 
   const handleReset = () => setSelectedGood(null);
+  const handleSelection = good => (isSelected(good) ? null : good);
 
   return (
     <main className="section container">
@@ -52,14 +53,14 @@ export const App = () => {
             >
               <td>
                 <button
-                  onClick={() => setSelectedGood(good)}
-                  data-cy={isSelected ? 'RemoveButton' : 'AddButton'}
+                  onClick={() => setSelectedGood(handleSelection(good))}
+                  data-cy={isSelected(good) ? 'RemoveButton' : 'AddButton'}
                   type="button"
                   className={cn('button', {
                     'is-info': isSelected(good),
                   })}
                 >
-                  {isSelected(good) ? '+' : '-'}
+                  {isSelected(good) ? '-' : '+'}
                 </button>
               </td>
               <td
